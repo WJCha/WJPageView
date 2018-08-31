@@ -12,6 +12,10 @@
 		DF1EF4D92137BEDF00B1545A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF1EF4D72137BEDF00B1545A /* Main.storyboard */; };
 		DF1EF4DB2137BEDF00B1545A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF1EF4DA2137BEDF00B1545A /* Assets.xcassets */; };
 		DF1EF4DE2137BEDF00B1545A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF1EF4DC2137BEDF00B1545A /* LaunchScreen.storyboard */; };
+		DF1EF4E72137C7BF00B1545A /* WJPageTitleBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1EF4E62137C7BF00B1545A /* WJPageTitleBarView.swift */; };
+		DF1EF4EB2137D67800B1545A /* WJPageViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1EF4EA2137D67800B1545A /* WJPageViewConfig.swift */; };
+		DF1EF4ED2137ED5100B1545A /* WJStringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1EF4EC2137ED5100B1545A /* WJStringHelper.swift */; };
+		DF8D022A21397295000BDF5F /* WJPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8D022921397295000BDF5F /* WJPageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +26,10 @@
 		DF1EF4DA2137BEDF00B1545A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF1EF4DD2137BEDF00B1545A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DF1EF4DF2137BEDF00B1545A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF1EF4E62137C7BF00B1545A /* WJPageTitleBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJPageTitleBarView.swift; sourceTree = "<group>"; };
+		DF1EF4EA2137D67800B1545A /* WJPageViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJPageViewConfig.swift; sourceTree = "<group>"; };
+		DF1EF4EC2137ED5100B1545A /* WJStringHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJStringHelper.swift; sourceTree = "<group>"; };
+		DF8D022921397295000BDF5F /* WJPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJPageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +76,10 @@
 		DF1EF4E52137BFEA00B1545A /* WJPageView */ = {
 			isa = PBXGroup;
 			children = (
+				DF8D022921397295000BDF5F /* WJPageView.swift */,
+				DF1EF4E62137C7BF00B1545A /* WJPageTitleBarView.swift */,
+				DF1EF4EA2137D67800B1545A /* WJPageViewConfig.swift */,
+				DF1EF4EC2137ED5100B1545A /* WJStringHelper.swift */,
 			);
 			path = WJPageView;
 			sourceTree = "<group>";
@@ -146,6 +158,10 @@
 			files = (
 				DF1EF4D62137BEDF00B1545A /* ViewController.swift in Sources */,
 				DF1EF4D42137BEDF00B1545A /* AppDelegate.swift in Sources */,
+				DF8D022A21397295000BDF5F /* WJPageView.swift in Sources */,
+				DF1EF4ED2137ED5100B1545A /* WJStringHelper.swift in Sources */,
+				DF1EF4E72137C7BF00B1545A /* WJPageTitleBarView.swift in Sources */,
+				DF1EF4EB2137D67800B1545A /* WJPageViewConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
