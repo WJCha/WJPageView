@@ -16,6 +16,7 @@
 		DF1EF4EB2137D67800B1545A /* WJPageViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1EF4EA2137D67800B1545A /* WJPageViewConfig.swift */; };
 		DF1EF4ED2137ED5100B1545A /* WJStringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1EF4EC2137ED5100B1545A /* WJStringHelper.swift */; };
 		DF8D022A21397295000BDF5F /* WJPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8D022921397295000BDF5F /* WJPageView.swift */; };
+		DFF4944D213A013200B6430D /* WJPageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF4944C213A013200B6430D /* WJPageContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		DF1EF4EA2137D67800B1545A /* WJPageViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJPageViewConfig.swift; sourceTree = "<group>"; };
 		DF1EF4EC2137ED5100B1545A /* WJStringHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJStringHelper.swift; sourceTree = "<group>"; };
 		DF8D022921397295000BDF5F /* WJPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJPageView.swift; sourceTree = "<group>"; };
+		DFF4944C213A013200B6430D /* WJPageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJPageContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,8 +79,9 @@
 			isa = PBXGroup;
 			children = (
 				DF8D022921397295000BDF5F /* WJPageView.swift */,
-				DF1EF4E62137C7BF00B1545A /* WJPageTitleBarView.swift */,
 				DF1EF4EA2137D67800B1545A /* WJPageViewConfig.swift */,
+				DF1EF4E62137C7BF00B1545A /* WJPageTitleBarView.swift */,
+				DFF4944C213A013200B6430D /* WJPageContentView.swift */,
 				DF1EF4EC2137ED5100B1545A /* WJStringHelper.swift */,
 			);
 			path = WJPageView;
@@ -156,6 +159,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFF4944D213A013200B6430D /* WJPageContentView.swift in Sources */,
 				DF1EF4D62137BEDF00B1545A /* ViewController.swift in Sources */,
 				DF1EF4D42137BEDF00B1545A /* AppDelegate.swift in Sources */,
 				DF8D022A21397295000BDF5F /* WJPageView.swift in Sources */,

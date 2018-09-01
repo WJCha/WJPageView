@@ -9,7 +9,7 @@
 import UIKit
 
 
-@objc public protocol WJPageTitleBarViewDelegate: class {
+@objc public protocol WJPageTitleBarViewDelegate: NSObjectProtocol {
 
     @objc optional func titleBarView(_ titleBarView: WJPageTitleBarView, _ currentIndex: Int)
 }
@@ -30,9 +30,14 @@ open class WJPageTitleBarView: UIView {
     private lazy var scrollView: UIScrollView = setupScrollView();
     private lazy var indicatorView: UIView    = setupIndicator();
     private lazy var ovalView: UIView         = setupOvalView()
-    private var titleLables: [UILabel] = [UILabel]()
+    private var titleLabels: [UILabel] = [UILabel]()
     private var titleWidthArr: [CGFloat] = [CGFloat]()
     private var canScrollTitleLabelToCenter: Bool = false
+    
+    /// 指示器原始X值
+//    private var indicatorOriginWidth: CGFloat = 0
+//    private var indicatorEndX: CGFloat = 0
+//    private var indicatorCenterX: CGFloat = 0
 
     
     init(frame: CGRect, config: WJPageViewConfig, titles: [String]) {
@@ -47,12 +52,7 @@ open class WJPageTitleBarView: UIView {
         self.config = WJPageViewConfig()
         fatalError("init(coder:) has not been implemented")
     }
-
     
-    deinit {
-        print("对象释放了")
-    }
-
 }
 
 
@@ -82,9 +82,9 @@ extension WJPageTitleBarView {
     private func setupTitles() {
         
         assert(config.defaultIndex >= 0, "索引必须大于0")
-        assert(config.defaultIndex > titleLables.count - 1, "数组越界")
+        assert(config.defaultIndex > titleLabels.count - 1, "数组越界")
         
-        titleLables.removeAll()
+        titleLabels.removeAll()
         for(index, title) in titles.enumerated() {
             let titleLabel = UILabel()
             titleLabel.tag = index
@@ -93,7 +93,7 @@ extension WJPageTitleBarView {
             titleLabel.text = title
             titleLabel.textColor = index == config.defaultIndex ? config.titleSelectedColor : config.titleNormalColor
             scrollView.addSubview(titleLabel)
-            titleLables.append(titleLabel)
+            titleLabels.append(titleLabel)
             titleLabel.isUserInteractionEnabled = true
             let tap = UITapGestureRecognizer(target: self, action: #selector(titleLabelClicked(_:)))
             titleLabel.addGestureRecognizer(tap)
@@ -114,9 +114,8 @@ extension WJPageTitleBarView {
         ovalView.backgroundColor = config.ovalViewBgColor
         ovalView.layer.borderWidth = config.ovalViewBorderWidth
         ovalView.layer.borderColor = config.ovalViewBorderColor.cgColor
-        ovalView.layer.cornerRadius = config.ovalViewCornerRadius ?? (config.ovalViewHeight != nil ? config.ovalViewHeight! * 0.5 : bounds.size.height * 0.7 * 0.5)
-        ovalView.layer.masksToBounds = true
         ovalView.alpha = config.ovalViewAlpha
+        ovalView.layer.masksToBounds = true
         return ovalView
     }
     
@@ -142,41 +141,48 @@ extension WJPageTitleBarView {
     }
     
     private func layoutOvalView() {
-        let titleLabel = titleLables[config.defaultIndex]
+        let titleLabel = titleLabels[config.defaultIndex]
         ovalView.frame.size.width = config.ovalViewExtendWidth * 2 + titleLabel.frame.size.width
         ovalView.center.x = titleLabel.center.x
-        ovalView.frame.size.height = config.ovalViewHeight ?? bounds.size.height * 0.7
+        ovalView.frame.size.height = config.ovalViewHeight ?? titleLabel.frame.size.height
         ovalView.center.y = titleLabel.center.y
+        ovalView.layer.cornerRadius = config.ovalViewCornerRadius ?? (config.ovalViewHeight != nil ? config.ovalViewHeight! * 0.5 : titleLabels[config.defaultIndex].frame.size.height * 0.5)
+        
     }
     
     
     private func layoutIndicator() {
         
-        let titleLabel = titleLables[config.defaultIndex]
+        let titleLabel = titleLabels[config.defaultIndex]
         indicatorView.frame.size.width = config.indicatorWidth ?? titleLabel.frame.size.width
         indicatorView.center.x = titleLabel.center.x
         indicatorView.frame.size.height = config.indicatorLineHeight
         indicatorView.frame.origin.y = bounds.size.height - config.indicatorLineHeight - config.indecatorBottomOffset
         
+        
+        
     }
     
     private func layoutTitleLabel() {
         
-        titleWidthArr = titleLables.map { $0.text!.getSize(CGSize(width: CGFloat.greatestFiniteMagnitude, height: 0), font: $0.font).width }
+        titleWidthArr = titleLabels.map { $0.text!.getSize(CGSize(width: CGFloat.greatestFiniteMagnitude, height: 0), font: $0.font).width }
 
         // 第一个标题到最后一个标题的总宽度（包含标题间的间距）
-        let totalTitleWidth = titleWidthArr.reduce(0, +) + config.fixedTitleMargin * CGFloat(titleLables.count - 1)
+        let totalTitleWidth = titleWidthArr.reduce(0, +) + config.fixedTitleMargin * CGFloat(titleLabels.count - 1)
         
         // 边缘距离
         var edgeMargin: CGFloat = 0
-        if  bounds.size.width - totalTitleWidth > 0,
+        var isDealWithAlignment = false
+        if  bounds.size.width - totalTitleWidth >= 0,
             (bounds.size.width - totalTitleWidth) * 0.5 >= config.titleEdgeMargin{
             canScrollTitleLabelToCenter = false
+            isDealWithAlignment = false
             edgeMargin = (bounds.size.width - totalTitleWidth) * 0.5
             if config.contentAlignment == .left { edgeMargin = config.titleEdgeMargin }
             if config.contentAlignment == .right { edgeMargin = (bounds.size.width - totalTitleWidth - config.titleEdgeMargin) }
         } else {
             canScrollTitleLabelToCenter = true
+            isDealWithAlignment = true
             edgeMargin = config.titleEdgeMargin
         }
 
@@ -186,7 +192,7 @@ extension WJPageTitleBarView {
         let itemH: CGFloat = bounds.size.height - (config.isShowIndicator ? config.indicatorLineHeight : 0)
         
         var lastX: CGFloat = edgeMargin
-        for (index, titleLable) in titleLables.enumerated() {
+        for (index, titleLable) in titleLabels.enumerated() {
             itemW = titleWidthArr[index]
             itemX = lastX
             titleLable.frame = CGRect(x: itemX, y: itemY, width: itemW, height: itemH)
@@ -194,11 +200,18 @@ extension WJPageTitleBarView {
         }
         
         var lastTitleLabelMaxX: CGFloat = 0
-        if let titleLabel = titleLables.last {
+        if let titleLabel = titleLabels.last {
             lastTitleLabelMaxX = titleLabel.frame.maxX
         }
         scrollView.contentSize = CGSize(width: lastTitleLabelMaxX + config.titleEdgeMargin, height: 0)
         
+        if isDealWithAlignment {
+            if config.contentAlignment == .centerToRight || config.contentAlignment == .right { scrollTargetTitleLabelToCenter(titleLabels.last, animated: false) }
+            if config.contentAlignment == .center { scrollTargetTitleLabelToCenter(titleLabels[Int(floorf(Float(titleLabels.count/2)))], animated: false) }
+        }
+        
+        
+      
         
     }
 }
@@ -220,7 +233,7 @@ extension WJPageTitleBarView {
         
         delegate?.titleBarView?(self, targetTitleLabel.tag)
         
-        animateFromTitleLabel(titleLables[config.defaultIndex], to: targetTitleLabel)
+        animateFromTitleLabel(titleLabels[config.defaultIndex], to: targetTitleLabel)
         
         scrollTargetTitleLabelToCenter(targetTitleLabel)
 
@@ -230,8 +243,7 @@ extension WJPageTitleBarView {
         
 
         // 标题动画
-        sourceLabel.textColor = self.config.titleNormalColor
-        targetLabel.textColor = self.config.titleSelectedColor
+        changeTitltColor(sourceLabel, targetLabel)
         
         self.config.defaultIndex = targetLabel.tag
         
@@ -245,6 +257,11 @@ extension WJPageTitleBarView {
             startOvalViewAnimate(sourceLabel, targetLabel)
         }
         
+    }
+    
+    private func changeTitltColor(_ sourceLabel: UILabel, _ targetLabel: UILabel) {
+        sourceLabel.textColor = self.config.titleNormalColor
+        targetLabel.textColor = self.config.titleSelectedColor
     }
     
     private func startOvalViewAnimate(_ sourceLabel: UILabel, _ targetLabel: UILabel) {
@@ -275,7 +292,7 @@ extension WJPageTitleBarView {
     }
     
     
-    private func scrollTargetTitleLabelToCenter(_ targetLabel: UILabel?) {
+    private func scrollTargetTitleLabelToCenter(_ targetLabel: UILabel?, animated: Bool = true) {
         
         guard let targetLabel = targetLabel else {
             return
@@ -293,7 +310,71 @@ extension WJPageTitleBarView {
         // 右边超出处理
         let maxTitleOffsetX = scrollView.contentSize.width - scrollView.bounds.width
         if offset.x > maxTitleOffsetX { offset.x = maxTitleOffsetX }
-        scrollView.setContentOffset(offset, animated: true)
+        scrollView.setContentOffset(offset, animated: animated)
+        
+    }
+    
+}
+
+
+extension WJPageTitleBarView: WJPageContentViewDelegate {
+    
+    
+    /// 停止滚动
+    public func pageContentView(_ pageContentView: WJPageContentView, sourceIndex: Int, targetIndex: Int) {
+        
+        print("=++++\(sourceIndex)-\(targetIndex)--\(config.defaultIndex)")
+        changeTitltColor(titleLabels[sourceIndex], titleLabels[targetIndex])
+    }
+    
+    public func pageContentView(_ pageContentView: WJPageContentView, sourceIndex: Int, targetIndex: Int, progress: CGFloat) {
+     
+        print("起始索引 \(sourceIndex), 目标索引 \(targetIndex), 进度 \(progress)")
+        if sourceIndex > titleLabels.count - 1 || sourceIndex < 0 { return }
+        if targetIndex > titleLabels.count - 1 || targetIndex < 0 { return }
+        let sourceLabel = titleLabels[sourceIndex]
+        let targetLabel = titleLabels[targetIndex]
+        
+        
+        let distance = targetLabel.center.x - sourceLabel.center.x
+        let changeWidth = targetLabel.frame.size.width - sourceLabel.frame.size.width
+   
+        if config.isShowOvalView {
+            ovalView.frame.size.width = sourceLabel.frame.width + changeWidth * progress + config.ovalViewExtendWidth * 2
+            ovalView.center.x = sourceLabel.center.x + distance * progress
+        }
+        
+        
+        if config.isShowIndicator {
+            indicatorView.frame.size.width = config.indicatorWidth ?? (sourceLabel.frame.width + changeWidth * progress)
+            indicatorView.center.x = sourceLabel.center.x + distance * progress
+        }
+        
+        
+
+//        if config.isShowIndicator {
+//
+//            if progress < 0.5 {
+//
+//                if config.indicatorWidth == nil {
+//                    indicatorView.frame.size.width = sourceLabel.frame.size.width + (targetLabel.frame.maxX - sourceLabel.frame.maxX) * progress * 2
+//                    indicatorOriginWidth = indicatorView.frame.size.width
+//                }
+//
+//                indicatorView.frame.origin.x = indicatorView.frame.origin.x
+//
+//            } else {
+//
+//                if config.indicatorWidth == nil {
+//                    indicatorView.frame.size.width =  indicatorOriginWidth - (targetLabel.frame.minX - sourceLabel.frame.minX) * (progress - 0.5) * 2
+//                    indicatorView.frame.origin.x = sourceLabel.frame.origin.x + (targetLabel.frame.minX - sourceLabel.frame.minX) * (progress - 0.5) * 2
+//                }
+//
+//            }
+//
+//
+//        }
+        
         
     }
     

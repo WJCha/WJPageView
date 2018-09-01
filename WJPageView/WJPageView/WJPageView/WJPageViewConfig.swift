@@ -9,8 +9,15 @@
 import UIKit
 
 public enum ContentAlignment: Int {
+    /// 标题可以满屏显示时居中，超屏显示需要滚动即为左对齐, 默认
+    case centerToLeft
+    /// 标题可以满屏显示时居中，超屏显示需要滚动即为右对齐
+    case centerToRight
+    /// 居中显示
     case center
+    /// 左对齐
     case left
+    /// 右对齐
     case right
 }
 
@@ -31,7 +38,7 @@ public class WJPageViewConfig {
     /// 标题之间的固定间距
     public var fixedTitleMargin: CGFloat = 15.0
     /// 内容对齐方式
-    public var contentAlignment: ContentAlignment = .center
+    public var contentAlignment: ContentAlignment = .centerToLeft
     
     /// 标题回弹效果
     public var titleAlwaysBounceHorizontal: Bool = true
@@ -51,9 +58,9 @@ public class WJPageViewConfig {
     
     /// 是否显示标题背景指示器
     public var isShowOvalView: Bool = false
-    /// 标题背景指示器圆角, 如果设置ovalViewHeight，默认圆角为ovalViewHeight*0.5，否则为标题栏高度*0.7*0.5
+    /// 标题背景指示器圆角, 如果设置ovalViewHeight，默认圆角度数为ovalViewHeight*0.5，否则为标题Label高度*0.5
     public var ovalViewCornerRadius: CGFloat?
-    /// 标题背景指示器边框高度，默认为标题栏高度的 0.7
+    /// 标题背景指示器边框高度
     public var ovalViewHeight: CGFloat?
     /// 标题背景指示器背景颜色
     public var ovalViewBgColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
@@ -65,5 +72,10 @@ public class WJPageViewConfig {
     public var ovalViewExtendWidth: CGFloat = 15.0
     /// 标题背景指示器的透明度
     public var ovalViewAlpha: CGFloat = 1.0
+    
+    
+    /// 是否要懒加载控制器
+    public var isLazyController: Bool = true
+    
 
 }

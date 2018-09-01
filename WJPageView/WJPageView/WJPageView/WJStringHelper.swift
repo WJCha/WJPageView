@@ -11,7 +11,6 @@ import Foundation
 
 extension String {
 
-    
     /// 获取文字尺寸
     func getSize(_ size: CGSize, font: UIFont) -> CGSize {
         return (self as NSString).boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 0), options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font : font], context: nil).size
@@ -19,4 +18,12 @@ extension String {
     
     
 }
+
+extension UIColor {
+    static var randomColor: UIColor {
+        return UIColor(red: CGFloat(arc4random_uniform(256))/255.0, green: CGFloat(arc4random_uniform(256))/255.0, blue: CGFloat(arc4random_uniform(256))/255.0, alpha: 1.0)
+    }
+}
+
+
 

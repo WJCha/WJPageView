@@ -16,22 +16,37 @@ class ViewController: UIViewController {
         let size = UIScreen.main.bounds.size
         
         let config = WJPageViewConfig()
-        config.fixedTitleMargin = 30
-        config.titleEdgeMargin = 20
+        config.fixedTitleMargin = 25
+//        config.titleEdgeMargin = 10
 //        config.indicatorWidth = 10
 //        config.indicatorLineHeight = 6
 //        config.indecatorBottomOffset = 8
-//        config.contentAlignment = .right
+        config.contentAlignment = .centerToLeft
+//        config.isShowIndicator =
 //        config.isShowIndicator = false
-        config.isShowIndicator = true
-//        config.isShowOvalView = false
-//        config.ovalViewHeight = 26
+//        config.indicatorLineHeight = 8
+//        config.isShowOvalView = true
+//        config.ovalViewHeight = 30
 //        config.ovalViewCornerRadius = 8
 //        config.ovalViewBorderWidth = 2.0
 //        config.ovalViewBorderColor = .red
-        let titleBar = WJPageTitleBarView(frame: CGRect(x: 0, y: 20, width: size.width, height: 44), config: config, titles: ["音乐", "科技杂志","科技杂志","视频"])
+        let titles = ["音乐", "科技杂志","科技杂志"]
+        let titleBar = WJPageTitleBarView(frame: CGRect(x: 0, y: 20, width: size.width, height: 44), config: config, titles: titles)
         titleBar.delegate = self
         self.view.addSubview(titleBar)
+        
+        
+        let childVCs: [UIViewController] = titles.map { _ in
+            let controller = UIViewController()
+            return controller
+        }
+        let contentView = WJPageContentView(frame: CGRect(x: 0, y: 64, width: size.width, height: size.height - 64), config: config, parentContainer: self, childContainers: childVCs)
+        self.view.addSubview(contentView)
+        
+        
+        titleBar.delegate = contentView
+        contentView.delegate = titleBar
+        
         
     }
 
@@ -42,6 +57,8 @@ class ViewController: UIViewController {
 
 
 }
+
+
 
 
 extension ViewController: WJPageTitleBarViewDelegate {
