@@ -49,15 +49,15 @@ public class WJPageViewConfig {
     public var fixedTitleMargin: CGFloat = 15.0
     /// 内容对齐方式
     public var contentAlignment: ContentAlignment = .centerToLeft
+    /// 是否开启标题缩放动画
+    public var isScaleTransformEnable: Bool = false
+    /// 缩放因子
+    public var maximumScaleTransformFactor: CGFloat = 1.05
     
     
     /// 标题回弹效果
     public var titleAlwaysBounceHorizontal: Bool = true
     
-    /// 是否开启标题缩放动画
-    public var isScaleTransformEnable: Bool = false
-    /// 缩放因子
-    public var maximumScaleTransformFactor: CGFloat = 1.05
     
     
     /// 是否显示 底线 标题指示器
