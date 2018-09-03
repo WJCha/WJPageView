@@ -33,6 +33,8 @@ public class WJPageViewConfig {
     
     // MARK: -------- 标题相关设置 ----------
     
+    /// 是否开启标题颜色渐变效果
+    public var isTitleColorAnimateEnable: Bool = true
     /// 标题普通颜色
     public var titleNormalColor: UIColor = .black
     /// 标题选中颜色
@@ -48,8 +50,15 @@ public class WJPageViewConfig {
     /// 内容对齐方式
     public var contentAlignment: ContentAlignment = .centerToLeft
     
+    
     /// 标题回弹效果
     public var titleAlwaysBounceHorizontal: Bool = true
+    
+    /// 是否开启标题缩放动画
+    public var isScaleTransformEnable: Bool = false
+    /// 缩放因子
+    public var maximumScaleTransformFactor: CGFloat = 1.05
+    
     
     /// 是否显示 底线 标题指示器
     public var isShowIndicator: Bool = true 
