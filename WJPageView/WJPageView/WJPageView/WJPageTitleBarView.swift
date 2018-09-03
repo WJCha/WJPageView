@@ -11,15 +11,22 @@ import UIKit
 
 @objc public protocol WJPageTitleBarViewDelegate: NSObjectProtocol {
 
+    /// 子控制器刷新代理
+    @objc optional var reloader: WJPageReloadable? { get }
     @objc optional func titleBarView(_ titleBarView: WJPageTitleBarView, _ selectedIndex: Int)
 
 }
 
-//@objc public protocol WJPageReloadable: class {
-//    /// 标题重复点击
-//    @objc optional func titleBarViewTitleDidRepeatSelected()
-//}
 
+/// 子控制器要监听标题重复点击以及滚动停止可以实现该协议对应方法
+@objc public protocol WJPageReloadable: NSObjectProtocol {
+    
+    /// 监听标题重复点击事件
+    @objc optional func titleBarViewTitleDidRepeatClicked()
+    
+    /// 监听 pageContentView 滚动停止
+    @objc optional func pageContaionerViewDidEndScroll()
+}
 
 open class WJPageTitleBarView: UIView {
 
@@ -236,7 +243,7 @@ extension WJPageTitleBarView {
         
         // repeat click
         if targetTitleLabel.tag == config.defaultIndex {
-            print("重复点击")
+            delegate?.reloader??.titleBarViewTitleDidRepeatClicked?()
             return
         }
         

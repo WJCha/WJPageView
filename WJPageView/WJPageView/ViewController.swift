@@ -39,22 +39,25 @@ class ViewController: UIViewController {
 //        config.isTitleColorAnimateEnable = true
 //        config.maximumScaleTransformFactor = 1.4
 //        config.isPageContainerScorllSupport = false
-        let titles = ["音乐", "科技杂志","科技杂志"]
+        let titles = ["音乐", "科技杂志"]
         let titleBar = WJPageTitleBarView(frame: CGRect(x: 0, y: 20, width: size.width, height: 44), config: config, titles: titles)
-        self.titleBar = titleBar
-        self.view.addSubview(titleBar)
         
         
-        let childVCs: [UIViewController] = titles.map { _ in
-            let controller = UIViewController()
-            controller.view.backgroundColor = UIColor.randomColor
-            return controller
-        }
+//        let childVCs: [UIViewController] = titles.map { _ in
+//            let controller = UIViewController()
+//            controller.view.backgroundColor = UIColor.randomColor
+//            return controller
+//        }
+        
+        let childVCs: [UIViewController] = [
+            WJTitleExampleController(),
+            WJDemoViewController()
+        ]
         
         let contentView = WJPageContainerView(frame: CGRect(x: 0, y: 64, width: size.width, height: size.height - 64), config: config, childViewControllers: childVCs)
-        self.pageContent = contentView
+  
         self.view.addSubview(contentView)
-        
+        self.view.addSubview(titleBar)
         
         titleBar.delegate = contentView
         contentView.delegate = titleBar

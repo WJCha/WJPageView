@@ -8,3 +8,7 @@
 
 import UIKit
 
+
+//protocol WJPageControllerLoadable: class {
+//    
+//}

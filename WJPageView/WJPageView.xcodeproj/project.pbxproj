@@ -19,6 +19,8 @@
 		DF8D022A21397295000BDF5F /* WJPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8D022921397295000BDF5F /* WJPageView.swift */; };
 		DFA45AFA213CDD4400949C84 /* WJFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA45AF9213CDD4400949C84 /* WJFlowLayout.swift */; };
 		DFD16DCB213D248D00242B1E /* WJColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD16DCA213D248D00242B1E /* WJColorExtension.swift */; };
+		DFD3579F213D663C0093246A /* WJTitleExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD3579E213D663C0093246A /* WJTitleExampleController.swift */; };
+		DFD357A1213D68340093246A /* WJDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD357A0213D68340093246A /* WJDemoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		DF8D022921397295000BDF5F /* WJPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJPageView.swift; sourceTree = "<group>"; };
 		DFA45AF9213CDD4400949C84 /* WJFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJFlowLayout.swift; sourceTree = "<group>"; };
 		DFD16DCA213D248D00242B1E /* WJColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJColorExtension.swift; sourceTree = "<group>"; };
+		DFD3579E213D663C0093246A /* WJTitleExampleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJTitleExampleController.swift; sourceTree = "<group>"; };
+		DFD357A0213D68340093246A /* WJDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJDemoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				DF1EF4E52137BFEA00B1545A /* WJPageView */,
+				DFD3579D213D5EBD0093246A /* WJPageViewExample */,
 				DF1EF4D32137BEDF00B1545A /* AppDelegate.swift */,
 				DF1EF4D52137BEDF00B1545A /* ViewController.swift */,
 				DF1EF4D72137BEDF00B1545A /* Main.storyboard */,
@@ -91,6 +96,15 @@
 				DFD16DCA213D248D00242B1E /* WJColorExtension.swift */,
 			);
 			path = WJPageView;
+			sourceTree = "<group>";
+		};
+		DFD3579D213D5EBD0093246A /* WJPageViewExample */ = {
+			isa = PBXGroup;
+			children = (
+				DFD3579E213D663C0093246A /* WJTitleExampleController.swift */,
+				DFD357A0213D68340093246A /* WJDemoViewController.swift */,
+			);
+			path = WJPageViewExample;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,7 +185,9 @@
 				DF1EF4D42137BEDF00B1545A /* AppDelegate.swift in Sources */,
 				DF8D022A21397295000BDF5F /* WJPageView.swift in Sources */,
 				DF1EF4ED2137ED5100B1545A /* WJStringHelper.swift in Sources */,
+				DFD3579F213D663C0093246A /* WJTitleExampleController.swift in Sources */,
 				DF1EF4E72137C7BF00B1545A /* WJPageTitleBarView.swift in Sources */,
+				DFD357A1213D68340093246A /* WJDemoViewController.swift in Sources */,
 				DFD16DCB213D248D00242B1E /* WJColorExtension.swift in Sources */,
 				DF1EF4EB2137D67800B1545A /* WJPageViewConfig.swift in Sources */,
 			);
