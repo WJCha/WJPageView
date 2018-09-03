@@ -35,10 +35,15 @@ open class WJPageTitleBarView: UIView {
     private var titleWidthArr: [CGFloat] = [CGFloat]()
     private var canScrollTitleLabelToCenter: Bool = false
     
-    /// 指示器原始X值
-//    private var indicatorOriginWidth: CGFloat = 0
-//    private var indicatorEndX: CGFloat = 0
-//    private var indicatorCenterX: CGFloat = 0
+    private lazy var normalColorRGB: WJColorRGB = config.titleNormalColor.getRGB()
+    private lazy var selectColorRGB: WJColorRGB = config.titleSelectedColor.getRGB()
+    private lazy var deltaRGB: WJColorRGB = {
+        let deltaR = self.normalColorRGB.red - self.selectColorRGB.red
+        let deltaG = self.normalColorRGB.green - self.selectColorRGB.green
+        let deltaB = self.normalColorRGB.blue - self.selectColorRGB.blue
+        return (deltaR, deltaG, deltaB)
+    }()
+    
 
     
     init(frame: CGRect, config: WJPageViewConfig, titles: [String]) {
@@ -212,7 +217,9 @@ extension WJPageTitleBarView {
         }
         
         
-        
+        if config.isScaleTransformEnable {
+            titleLabels[config.defaultIndex].transform = CGAffineTransform(scaleX: config.maximumScaleTransformFactor, y: config.maximumScaleTransformFactor)
+        }
         
       
         
@@ -245,10 +252,15 @@ extension WJPageTitleBarView {
     private func animateFromTitleLabel(_ sourceLabel: UILabel, to targetLabel: UILabel) {
         
 
-        // 标题动画
+        // 标题选中颜色
         changeTitleSelectedState(sourceLabel, targetLabel)
         
         self.config.defaultIndex = targetLabel.tag
+        
+        // 标题放大动画
+        if config.isScaleTransformEnable {
+            starTitleScaleTransformAnimate(sourceLabel, targetLabel)
+        }
         
         // 线条指示器动画
         if config.isShowIndicator {
@@ -258,6 +270,16 @@ extension WJPageTitleBarView {
         // 椭圆背景指示器动画
         if config.isShowOvalView {
             startOvalViewAnimate(sourceLabel, targetLabel)
+        }
+        
+    }
+    
+    
+    private func starTitleScaleTransformAnimate(_ sourceLabel: UILabel, _ targetLabel: UILabel) {
+        
+        UIView.animate(withDuration: 0.25) {
+            sourceLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            targetLabel.transform = CGAffineTransform(scaleX: self.config.maximumScaleTransformFactor, y: self.config.maximumScaleTransformFactor)
         }
         
     }
@@ -295,6 +317,7 @@ extension WJPageTitleBarView {
     }
     
     
+    /// 滚动标题到标题栏中心
     private func scrollTargetTitleLabelToCenter(_ targetLabel: UILabel?, animated: Bool = true) {
         
         guard let targetLabel = targetLabel else {
@@ -332,8 +355,6 @@ extension WJPageTitleBarView: WJPageContainerViewDelegate {
     /// 滚动进度相关信息
     public func pageContainerView(_ pageContainerView: WJPageContainerView, sourceIndex: Int, targetIndex: Int, progress: CGFloat) {
         
-        
-        //print("起始索引 \(sourceIndex), 目标索引 \(targetIndex), 进度 \(progress)")
         if sourceIndex > titleLabels.count - 1 || sourceIndex < 0 { return }
         if targetIndex > titleLabels.count - 1 || targetIndex < 0 { return }
         let sourceLabel = titleLabels[sourceIndex]
@@ -354,8 +375,38 @@ extension WJPageTitleBarView: WJPageContainerViewDelegate {
             indicatorView.center.x = sourceLabel.center.x + distance * progress
         }
         
+        
+        if config.isScaleTransformEnable {
+            let diffScale = config.maximumScaleTransformFactor - 1.0
+            sourceLabel.transform = CGAffineTransform(scaleX: config.maximumScaleTransformFactor - progress * diffScale, y: config.maximumScaleTransformFactor - progress * diffScale)
+            targetLabel.transform = CGAffineTransform(scaleX: 1.0 + progress * diffScale, y: 1.0 + progress * diffScale)
+        }
+        
+        if config.isTitleColorAnimateEnable {
+            if config.titleNormalColor == config.titleSelectedColor { return }
+            sourceLabel.textColor = UIColor(red: selectColorRGB.red+deltaRGB.red * progress, green: selectColorRGB.green+deltaRGB.green*progress, blue: selectColorRGB.blue+deltaRGB.blue*progress, alpha: 1.0)
+            targetLabel.textColor = UIColor(red: normalColorRGB.red-deltaRGB.red*progress, green: normalColorRGB.green-deltaRGB.green*progress, blue: normalColorRGB.blue-deltaRGB.blue*progress, alpha: 1.0)
+    
+        }
+        
+        
     }
     
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

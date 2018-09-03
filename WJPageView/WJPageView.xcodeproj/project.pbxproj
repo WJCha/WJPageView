@@ -18,6 +18,7 @@
 		DF1EF4ED2137ED5100B1545A /* WJStringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1EF4EC2137ED5100B1545A /* WJStringHelper.swift */; };
 		DF8D022A21397295000BDF5F /* WJPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8D022921397295000BDF5F /* WJPageView.swift */; };
 		DFA45AFA213CDD4400949C84 /* WJFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA45AF9213CDD4400949C84 /* WJFlowLayout.swift */; };
+		DFD16DCB213D248D00242B1E /* WJColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD16DCA213D248D00242B1E /* WJColorExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		DF1EF4EC2137ED5100B1545A /* WJStringHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJStringHelper.swift; sourceTree = "<group>"; };
 		DF8D022921397295000BDF5F /* WJPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJPageView.swift; sourceTree = "<group>"; };
 		DFA45AF9213CDD4400949C84 /* WJFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJFlowLayout.swift; sourceTree = "<group>"; };
+		DFD16DCA213D248D00242B1E /* WJColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				DF053994213CD8430004650A /* WJPageContainerView.swift */,
 				DFA45AF9213CDD4400949C84 /* WJFlowLayout.swift */,
 				DF1EF4EC2137ED5100B1545A /* WJStringHelper.swift */,
+				DFD16DCA213D248D00242B1E /* WJColorExtension.swift */,
 			);
 			path = WJPageView;
 			sourceTree = "<group>";
@@ -169,6 +172,7 @@
 				DF8D022A21397295000BDF5F /* WJPageView.swift in Sources */,
 				DF1EF4ED2137ED5100B1545A /* WJStringHelper.swift in Sources */,
 				DF1EF4E72137C7BF00B1545A /* WJPageTitleBarView.swift in Sources */,
+				DFD16DCB213D248D00242B1E /* WJColorExtension.swift in Sources */,
 				DF1EF4EB2137D67800B1545A /* WJPageViewConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
