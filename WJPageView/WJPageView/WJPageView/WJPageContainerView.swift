@@ -19,12 +19,14 @@ private let PAGE_CELL = "PAGE_CELL"
 open class WJPageContainerView: UIView {
     
     public weak var delegate: WJPageContainerViewDelegate?
+    public weak var reloader: WJPageReloadable?
     
     private let childViewControllers: [UIViewController]
     private let config: WJPageViewConfig
     private lazy var collectionView: UICollectionView = setupCollectionView()
     private var isIgnoreDelegate: Bool = false
     private var startOffsetX: CGFloat = 0
+    private var canCallEndScrollDelegate: Bool = false
 
     init(frame: CGRect, config: WJPageViewConfig, childViewControllers: [UIViewController]) {
         self.childViewControllers = childViewControllers
@@ -87,6 +89,12 @@ extension WJPageContainerView: UICollectionViewDataSource {
         
     }
     
+    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let childController = childViewControllers[indexPath.item]
+        reloader = childController as? WJPageReloadable
+    }
+    
+    
 }
 
 // MARK: - UICollectionViewDelegate
@@ -133,8 +141,6 @@ extension WJPageContainerView: UICollectionViewDelegate {
         }
         
         delegate?.pageContainerView?(self, sourceIndex: sourceIndex, targetIndex: targetIndex, progress: progress)
-
-        print("起始索引 \(sourceIndex), 目标索引 \(targetIndex), 进度 \(progress)")
         
     }
     
@@ -143,24 +149,27 @@ extension WJPageContainerView: UICollectionViewDelegate {
      *  前提：认为拖拽 scrollView 产生的滚动动画
      */
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        
         dealWithScrollViewDidEndScroll(scrollView)
-        
     }
+    
     /**
      *  在 scrollView 滚动动画结束时，就会调用该方法
      *  前提：使用 setContentOffset:animated: 或者 scrollRectVisible:animated: 方法让 scrollView 产生滚动动画
      */
     public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-
         dealWithScrollViewDidEndScroll(scrollView)
-    
     }
     
     
     private func dealWithScrollViewDidEndScroll(_ scrollView: UIScrollView) {
         
         let currentPageIndex = Int(round(scrollView.contentOffset.x / scrollView.frame.size.width))
+        
+        let childVC = childViewControllers[currentPageIndex]
+        reloader = childVC as? WJPageReloadable
+        reloader?.pageContaionerViewDidEndScroll?()
+        
+        
         let sourceIndex = config.defaultIndex
         config.defaultIndex = currentPageIndex
         delegate?.pageContainerView?(self, sourceIndex: sourceIndex, targetIndex: currentPageIndex)
