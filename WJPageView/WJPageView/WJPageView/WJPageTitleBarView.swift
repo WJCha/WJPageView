@@ -11,7 +11,8 @@ import UIKit
 
 @objc public protocol WJPageTitleBarViewDelegate: NSObjectProtocol {
 
-    @objc optional func titleBarView(_ titleBarView: WJPageTitleBarView, _ currentIndex: Int)
+    @objc optional func titleBarView(_ titleBarView: WJPageTitleBarView, _ selectedIndex: Int)
+
 }
 
 //@objc public protocol WJPageReloadable: class {
@@ -44,7 +45,7 @@ open class WJPageTitleBarView: UIView {
         self.titles = titles
         self.config = config
         super.init(frame: frame)
-        createUI()
+        titleBarSetup()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -59,7 +60,7 @@ open class WJPageTitleBarView: UIView {
 // MARK: - 设置 UI
 extension WJPageTitleBarView {
 
-    private func createUI() {
+    public func titleBarSetup() {
         addSubview(scrollView)
         setupTitles()
         if config.isShowIndicator {
@@ -211,6 +212,8 @@ extension WJPageTitleBarView {
         }
         
         
+        
+        
       
         
     }
@@ -243,7 +246,7 @@ extension WJPageTitleBarView {
         
 
         // 标题动画
-        changeTitltColor(sourceLabel, targetLabel)
+        changeTitleSelectedState(sourceLabel, targetLabel)
         
         self.config.defaultIndex = targetLabel.tag
         
@@ -259,7 +262,7 @@ extension WJPageTitleBarView {
         
     }
     
-    private func changeTitltColor(_ sourceLabel: UILabel, _ targetLabel: UILabel) {
+    private func changeTitleSelectedState(_ sourceLabel: UILabel, _ targetLabel: UILabel) {
         sourceLabel.textColor = self.config.titleNormalColor
         targetLabel.textColor = self.config.titleSelectedColor
     }
@@ -317,66 +320,42 @@ extension WJPageTitleBarView {
 }
 
 
-extension WJPageTitleBarView: WJPageContentViewDelegate {
+extension WJPageTitleBarView: WJPageContainerViewDelegate {
     
     
-    /// 停止滚动
-    public func pageContentView(_ pageContentView: WJPageContentView, sourceIndex: Int, targetIndex: Int) {
+    /// 滚动完成
+    public func pageContainerView(_ pageContainerView: WJPageContainerView, sourceIndex: Int, targetIndex: Int) {
         
-        print("=++++\(sourceIndex)-\(targetIndex)--\(config.defaultIndex)")
-        changeTitltColor(titleLabels[sourceIndex], titleLabels[targetIndex])
+        changeTitleSelectedState(titleLabels[sourceIndex], titleLabels[targetIndex])
     }
     
-    public func pageContentView(_ pageContentView: WJPageContentView, sourceIndex: Int, targetIndex: Int, progress: CGFloat) {
-     
-        print("起始索引 \(sourceIndex), 目标索引 \(targetIndex), 进度 \(progress)")
+    /// 滚动进度相关信息
+    public func pageContainerView(_ pageContainerView: WJPageContainerView, sourceIndex: Int, targetIndex: Int, progress: CGFloat) {
+        
+        
+        //print("起始索引 \(sourceIndex), 目标索引 \(targetIndex), 进度 \(progress)")
         if sourceIndex > titleLabels.count - 1 || sourceIndex < 0 { return }
         if targetIndex > titleLabels.count - 1 || targetIndex < 0 { return }
         let sourceLabel = titleLabels[sourceIndex]
         let targetLabel = titleLabels[targetIndex]
-        
-        
+
+
         let distance = targetLabel.center.x - sourceLabel.center.x
         let changeWidth = targetLabel.frame.size.width - sourceLabel.frame.size.width
-   
+
         if config.isShowOvalView {
             ovalView.frame.size.width = sourceLabel.frame.width + changeWidth * progress + config.ovalViewExtendWidth * 2
             ovalView.center.x = sourceLabel.center.x + distance * progress
         }
-        
-        
+
+
         if config.isShowIndicator {
             indicatorView.frame.size.width = config.indicatorWidth ?? (sourceLabel.frame.width + changeWidth * progress)
             indicatorView.center.x = sourceLabel.center.x + distance * progress
         }
         
-        
-
-//        if config.isShowIndicator {
-//
-//            if progress < 0.5 {
-//
-//                if config.indicatorWidth == nil {
-//                    indicatorView.frame.size.width = sourceLabel.frame.size.width + (targetLabel.frame.maxX - sourceLabel.frame.maxX) * progress * 2
-//                    indicatorOriginWidth = indicatorView.frame.size.width
-//                }
-//
-//                indicatorView.frame.origin.x = indicatorView.frame.origin.x
-//
-//            } else {
-//
-//                if config.indicatorWidth == nil {
-//                    indicatorView.frame.size.width =  indicatorOriginWidth - (targetLabel.frame.minX - sourceLabel.frame.minX) * (progress - 0.5) * 2
-//                    indicatorView.frame.origin.x = sourceLabel.frame.origin.x + (targetLabel.frame.minX - sourceLabel.frame.minX) * (progress - 0.5) * 2
-//                }
-//
-//            }
-//
-//
-//        }
-        
-        
     }
+    
     
 }
 
