@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF053995213CD8430004650A /* WJPageContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF053994213CD8430004650A /* WJPageContainerView.swift */; };
 		DF1EF4D42137BEDF00B1545A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1EF4D32137BEDF00B1545A /* AppDelegate.swift */; };
 		DF1EF4D62137BEDF00B1545A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1EF4D52137BEDF00B1545A /* ViewController.swift */; };
 		DF1EF4D92137BEDF00B1545A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF1EF4D72137BEDF00B1545A /* Main.storyboard */; };
@@ -16,10 +17,11 @@
 		DF1EF4EB2137D67800B1545A /* WJPageViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1EF4EA2137D67800B1545A /* WJPageViewConfig.swift */; };
 		DF1EF4ED2137ED5100B1545A /* WJStringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1EF4EC2137ED5100B1545A /* WJStringHelper.swift */; };
 		DF8D022A21397295000BDF5F /* WJPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8D022921397295000BDF5F /* WJPageView.swift */; };
-		DFF4944D213A013200B6430D /* WJPageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF4944C213A013200B6430D /* WJPageContentView.swift */; };
+		DFA45AFA213CDD4400949C84 /* WJFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA45AF9213CDD4400949C84 /* WJFlowLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DF053994213CD8430004650A /* WJPageContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJPageContainerView.swift; sourceTree = "<group>"; };
 		DF1EF4D02137BEDF00B1545A /* WJPageView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WJPageView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF1EF4D32137BEDF00B1545A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF1EF4D52137BEDF00B1545A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -31,7 +33,7 @@
 		DF1EF4EA2137D67800B1545A /* WJPageViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJPageViewConfig.swift; sourceTree = "<group>"; };
 		DF1EF4EC2137ED5100B1545A /* WJStringHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJStringHelper.swift; sourceTree = "<group>"; };
 		DF8D022921397295000BDF5F /* WJPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJPageView.swift; sourceTree = "<group>"; };
-		DFF4944C213A013200B6430D /* WJPageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJPageContentView.swift; sourceTree = "<group>"; };
+		DFA45AF9213CDD4400949C84 /* WJFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJFlowLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +83,8 @@
 				DF8D022921397295000BDF5F /* WJPageView.swift */,
 				DF1EF4EA2137D67800B1545A /* WJPageViewConfig.swift */,
 				DF1EF4E62137C7BF00B1545A /* WJPageTitleBarView.swift */,
-				DFF4944C213A013200B6430D /* WJPageContentView.swift */,
+				DF053994213CD8430004650A /* WJPageContainerView.swift */,
+				DFA45AF9213CDD4400949C84 /* WJFlowLayout.swift */,
 				DF1EF4EC2137ED5100B1545A /* WJStringHelper.swift */,
 			);
 			path = WJPageView;
@@ -159,7 +162,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFF4944D213A013200B6430D /* WJPageContentView.swift in Sources */,
+				DF053995213CD8430004650A /* WJPageContainerView.swift in Sources */,
+				DFA45AFA213CDD4400949C84 /* WJFlowLayout.swift in Sources */,
 				DF1EF4D62137BEDF00B1545A /* ViewController.swift in Sources */,
 				DF1EF4D42137BEDF00B1545A /* AppDelegate.swift in Sources */,
 				DF8D022A21397295000BDF5F /* WJPageView.swift in Sources */,

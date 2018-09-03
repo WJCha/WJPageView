@@ -8,6 +8,8 @@
 
 import UIKit
 
+let grayColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
+
 public enum ContentAlignment: Int {
     /// 标题可以满屏显示时居中，超屏显示需要滚动即为左对齐, 默认
     case centerToLeft
@@ -23,8 +25,14 @@ public enum ContentAlignment: Int {
 
 public class WJPageViewConfig {
     
-    /// 默认选中标题索引
+    // MARK: -------- 标题和控制器通用设置 ----------
+    
+    /// 默认 标题 和 控制器 索引
     public var defaultIndex: Int = 0
+    
+    
+    // MARK: -------- 标题相关设置 ----------
+    
     /// 标题普通颜色
     public var titleNormalColor: UIColor = .black
     /// 标题选中颜色
@@ -63,7 +71,7 @@ public class WJPageViewConfig {
     /// 标题背景指示器边框高度
     public var ovalViewHeight: CGFloat?
     /// 标题背景指示器背景颜色
-    public var ovalViewBgColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
+    public var ovalViewBgColor = grayColor
     /// 标题背景指示器边框宽度
     public var ovalViewBorderWidth: CGFloat = 0
     /// 标题背景指示器边框颜色
@@ -73,9 +81,15 @@ public class WJPageViewConfig {
     /// 标题背景指示器的透明度
     public var ovalViewAlpha: CGFloat = 1.0
     
+
     
-    /// 是否要懒加载控制器
-    public var isLazyController: Bool = true
+    // MARK: -------- 控制器相关设置 ----------
+    
+    /// 子控制器背景视图背景颜色
+    public var pageContainerViewBgColor = grayColor
+    /// 是否开启手势交互滚动切换子控制器
+    public var isInteractiveScorllEnable: Bool = true
+    
     
 
 }

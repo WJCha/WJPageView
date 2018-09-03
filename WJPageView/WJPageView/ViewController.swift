@@ -9,6 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var titleBar: WJPageTitleBarView?
+    var pageContent: WJPageContainerView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,30 +20,36 @@ class ViewController: UIViewController {
         
         let config = WJPageViewConfig()
         config.fixedTitleMargin = 25
-//        config.titleEdgeMargin = 10
+        config.titleEdgeMargin = 20
 //        config.indicatorWidth = 10
 //        config.indicatorLineHeight = 6
 //        config.indecatorBottomOffset = 8
-        config.contentAlignment = .centerToLeft
+        config.contentAlignment = .right
 //        config.isShowIndicator =
-//        config.isShowIndicator = false
+        config.isShowIndicator = false
 //        config.indicatorLineHeight = 8
-//        config.isShowOvalView = true
-//        config.ovalViewHeight = 30
+        config.isShowOvalView = true
+        config.ovalViewHeight = 30
+//        config.ovalViewBgColor = .red
 //        config.ovalViewCornerRadius = 8
 //        config.ovalViewBorderWidth = 2.0
 //        config.ovalViewBorderColor = .red
+        config.defaultIndex = 2
+//        config.isPageContainerScorllSupport = false
         let titles = ["音乐", "科技杂志","科技杂志"]
         let titleBar = WJPageTitleBarView(frame: CGRect(x: 0, y: 20, width: size.width, height: 44), config: config, titles: titles)
-        titleBar.delegate = self
+        self.titleBar = titleBar
         self.view.addSubview(titleBar)
         
         
         let childVCs: [UIViewController] = titles.map { _ in
             let controller = UIViewController()
+            controller.view.backgroundColor = UIColor.randomColor
             return controller
         }
-        let contentView = WJPageContentView(frame: CGRect(x: 0, y: 64, width: size.width, height: size.height - 64), config: config, parentContainer: self, childContainers: childVCs)
+        
+        let contentView = WJPageContainerView(frame: CGRect(x: 0, y: 64, width: size.width, height: size.height - 64), config: config, childViewControllers: childVCs)
+        self.pageContent = contentView
         self.view.addSubview(contentView)
         
         
@@ -57,15 +66,11 @@ class ViewController: UIViewController {
 
 
 }
-
-
-
-
-extension ViewController: WJPageTitleBarViewDelegate {
-    func titleBarView(_ titleBarView: WJPageTitleBarView, _ currentIndex: Int) {
-        print("当前选中索引\(currentIndex)")
-    }
-}
-
+//
+//extension ViewController: WJPageTitleBarViewDelegate, WJPageContainerViewDelegate {
+//    func titleBarView(_ titleBarView: WJPageTitleBarView, _ selectedIndex: Int) {
+//        pageContent?.scrollToPage(pageIndex: selectedIndex)
+//    }
+//}
 
 
