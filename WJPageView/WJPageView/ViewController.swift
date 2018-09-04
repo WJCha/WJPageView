@@ -7,90 +7,67 @@
 //
 
 import UIKit
-import SnapKit
 
+private let CELL = "ViewControllerCell"
 class ViewController: UIViewController {
-    
-//    var titleBar: WJPageTitleBarView?
-//    var pageContent: WJPageContainerView?
 
+    
+    @IBOutlet weak var tableView: UITableView!
+    private lazy var dataArr: [String] = ["标题样式案例", "标题栏和控制器组合使用", "XIB使用案例"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        //automaticallyAdjustsScrollViewInsets = false
         
-        let size = UIScreen.main.bounds.size
-        
-        let config = WJPageViewConfig()
-        config.fixedTitleMargin = 25
-        config.titleEdgeMargin = 20
-        config.indicatorWidth = 30
-//        config.indicatorLineHeight = 6
-//        config.indecatorBottomOffset = 8
-        config.contentAlignment = .right
-//        config.isShowIndicator =
-//        config.isShowIndicator = false
-//        config.indicatorLineHeight = 8
-//        config.isShowOvalView = true
-//        config.ovalViewHeight = 30
-//        config.ovalViewBgColor = .red
-//        config.ovalViewCornerRadius = 8
-//        config.ovalViewBorderWidth = 2.0
-//        config.ovalViewBorderColor = .red
-//        config.defaultIndex = 2
-//        config.isScaleTransformEnable = true
-//        config.isTitleColorAnimateEnable = true
-//        config.maximumScaleTransformFactor = 1.4
-//        config.isPageContainerScorllSupport = false
-        let titles = ["音乐", "科技杂志"]
-//        let titleBar = WJPageTitleBarView(frame: CGRect(x: 0, y: 20, width: size.width, height: 44), config: config, titles: titles)
-        
-        
-//        let childVCs: [UIViewController] = titles.map { _ in
-//            let controller = UIViewController()
-//            controller.view.backgroundColor = UIColor.randomColor
-//            return controller
-//        }
-        
-        let childVCs: [UIViewController] = [
-            WJTitleExampleController(),
-            WJDemoViewController()
-        ]
-        
-//        let contentView = WJPageContainerView(frame: CGRect(x: 0, y: 64, width: size.width, height: size.height - 64), config: config, childViewControllers: childVCs)
-//
-//        self.view.addSubview(contentView)
-//        self.view.addSubview(titleBar)
-//
-//        titleBar.delegate = contentView
-//        contentView.delegate = titleBar
-        
-        
-        let pageView = WJPageView(config: config, titles: titles, childViewControllers: childVCs)
-        view.addSubview(pageView.pageContainerView)
-        view.addSubview(pageView.titleBarView)
-        pageView.titleBarView.snp.makeConstraints { (make) in
-            make.left.right.equalToSuperview()
-            make.top.equalTo(20)
-            make.height.equalTo(44)
-        }
-        pageView.pageContainerView.snp.makeConstraints { (make) in
-            make.top.equalTo(pageView.titleBarView.snp.bottom)
-            make.left.right.bottom.equalToSuperview()
-        }
+        navigationItem.title = "使用案例"
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: CELL)
+        tableView.tableFooterView = UIView()
         
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 
 }
-//
-//extension ViewController: WJPageTitleBarViewDelegate, WJPageContainerViewDelegate {
-//    func titleBarView(_ titleBarView: WJPageTitleBarView, _ selectedIndex: Int) {
-//        pageContent?.scrollToPage(pageIndex: selectedIndex)
-//    }
-//}
+
+
+
+extension ViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataArr.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CELL) else {
+            return UITableViewCell(style: .value1, reuseIdentifier: CELL)
+        }
+        cell.textLabel?.text = dataArr[indexPath.row]
+        return cell
+    }
+    
+}
+
+extension ViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            navigationController?.pushViewController(WJTitleBarStyleDemoController(), animated: true)
+        } else if (indexPath.row == 1) {
+            navigationController?.pushViewController(WJGroupUseViewController(), animated: true)
+        } else {
+            navigationController?.pushViewController(WJXibUseDemoViewController(), animated: true)
+        }
+    }
+    
+    
+}
+
+
+
+
+
+
+
+
+
 
 

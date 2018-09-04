@@ -17,11 +17,17 @@
 		DF1EF4E72137C7BF00B1545A /* WJPageTitleBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1EF4E62137C7BF00B1545A /* WJPageTitleBarView.swift */; };
 		DF1EF4EB2137D67800B1545A /* WJPageViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1EF4EA2137D67800B1545A /* WJPageViewConfig.swift */; };
 		DF1EF4ED2137ED5100B1545A /* WJStringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1EF4EC2137ED5100B1545A /* WJStringHelper.swift */; };
+		DF233BDA213E2457005454E8 /* WJTitleBarStyleDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF233BD9213E2457005454E8 /* WJTitleBarStyleDemoController.swift */; };
+		DF233BDC213E31B2005454E8 /* WJGroupUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF233BDB213E31B2005454E8 /* WJGroupUseViewController.swift */; };
+		DF233BDE213E323E005454E8 /* WJMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF233BDD213E323E005454E8 /* WJMusicViewController.swift */; };
+		DF233BE0213E324B005454E8 /* WJVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF233BDF213E324B005454E8 /* WJVideoViewController.swift */; };
+		DF233BE2213E3269005454E8 /* WJRecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF233BE1213E3269005454E8 /* WJRecommendViewController.swift */; };
+		DF233BE4213E50F9005454E8 /* WJExampleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF233BE3213E50F9005454E8 /* WJExampleHelper.swift */; };
+		DF233BE7213E5C9A005454E8 /* WJXibUseDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF233BE5213E5C9A005454E8 /* WJXibUseDemoViewController.swift */; };
+		DF233BE8213E5C9A005454E8 /* WJXibUseDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF233BE6213E5C9A005454E8 /* WJXibUseDemoViewController.xib */; };
 		DF8D022A21397295000BDF5F /* WJPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8D022921397295000BDF5F /* WJPageView.swift */; };
 		DFA45AFA213CDD4400949C84 /* WJFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA45AF9213CDD4400949C84 /* WJFlowLayout.swift */; };
 		DFD16DCB213D248D00242B1E /* WJColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD16DCA213D248D00242B1E /* WJColorExtension.swift */; };
-		DFD3579F213D663C0093246A /* WJTitleExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD3579E213D663C0093246A /* WJTitleExampleController.swift */; };
-		DFD357A1213D68340093246A /* WJDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD357A0213D68340093246A /* WJDemoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,11 +44,17 @@
 		DF1EF4E62137C7BF00B1545A /* WJPageTitleBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJPageTitleBarView.swift; sourceTree = "<group>"; };
 		DF1EF4EA2137D67800B1545A /* WJPageViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJPageViewConfig.swift; sourceTree = "<group>"; };
 		DF1EF4EC2137ED5100B1545A /* WJStringHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJStringHelper.swift; sourceTree = "<group>"; };
+		DF233BD9213E2457005454E8 /* WJTitleBarStyleDemoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJTitleBarStyleDemoController.swift; sourceTree = "<group>"; };
+		DF233BDB213E31B2005454E8 /* WJGroupUseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJGroupUseViewController.swift; sourceTree = "<group>"; };
+		DF233BDD213E323E005454E8 /* WJMusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJMusicViewController.swift; sourceTree = "<group>"; };
+		DF233BDF213E324B005454E8 /* WJVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJVideoViewController.swift; sourceTree = "<group>"; };
+		DF233BE1213E3269005454E8 /* WJRecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJRecommendViewController.swift; sourceTree = "<group>"; };
+		DF233BE3213E50F9005454E8 /* WJExampleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJExampleHelper.swift; sourceTree = "<group>"; };
+		DF233BE5213E5C9A005454E8 /* WJXibUseDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJXibUseDemoViewController.swift; sourceTree = "<group>"; };
+		DF233BE6213E5C9A005454E8 /* WJXibUseDemoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WJXibUseDemoViewController.xib; sourceTree = "<group>"; };
 		DF8D022921397295000BDF5F /* WJPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJPageView.swift; sourceTree = "<group>"; };
 		DFA45AF9213CDD4400949C84 /* WJFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJFlowLayout.swift; sourceTree = "<group>"; };
 		DFD16DCA213D248D00242B1E /* WJColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJColorExtension.swift; sourceTree = "<group>"; };
-		DFD3579E213D663C0093246A /* WJTitleExampleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJTitleExampleController.swift; sourceTree = "<group>"; };
-		DFD357A0213D68340093246A /* WJDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJDemoViewController.swift; sourceTree = "<group>"; };
 		F1314DB01F609B37FC590B29 /* Pods-WJPageView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WJPageView.release.xcconfig"; path = "Pods/Target Support Files/Pods-WJPageView/Pods-WJPageView.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,8 +137,14 @@
 		DFD3579D213D5EBD0093246A /* WJPageViewExample */ = {
 			isa = PBXGroup;
 			children = (
-				DFD3579E213D663C0093246A /* WJTitleExampleController.swift */,
-				DFD357A0213D68340093246A /* WJDemoViewController.swift */,
+				DF233BE3213E50F9005454E8 /* WJExampleHelper.swift */,
+				DF233BD9213E2457005454E8 /* WJTitleBarStyleDemoController.swift */,
+				DF233BDB213E31B2005454E8 /* WJGroupUseViewController.swift */,
+				DF233BDD213E323E005454E8 /* WJMusicViewController.swift */,
+				DF233BDF213E324B005454E8 /* WJVideoViewController.swift */,
+				DF233BE1213E3269005454E8 /* WJRecommendViewController.swift */,
+				DF233BE5213E5C9A005454E8 /* WJXibUseDemoViewController.swift */,
+				DF233BE6213E5C9A005454E8 /* WJXibUseDemoViewController.xib */,
 			);
 			path = WJPageViewExample;
 			sourceTree = "<group>";
@@ -193,6 +211,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF233BE8213E5C9A005454E8 /* WJXibUseDemoViewController.xib in Resources */,
 				DF1EF4DE2137BEDF00B1545A /* LaunchScreen.storyboard in Resources */,
 				DF1EF4DB2137BEDF00B1545A /* Assets.xcassets in Resources */,
 				DF1EF4D92137BEDF00B1545A /* Main.storyboard in Resources */,
@@ -260,17 +279,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF233BE7213E5C9A005454E8 /* WJXibUseDemoViewController.swift in Sources */,
 				DF053995213CD8430004650A /* WJPageContainerView.swift in Sources */,
 				DFA45AFA213CDD4400949C84 /* WJFlowLayout.swift in Sources */,
 				DF1EF4D62137BEDF00B1545A /* ViewController.swift in Sources */,
 				DF1EF4D42137BEDF00B1545A /* AppDelegate.swift in Sources */,
+				DF233BE2213E3269005454E8 /* WJRecommendViewController.swift in Sources */,
 				DF8D022A21397295000BDF5F /* WJPageView.swift in Sources */,
 				DF1EF4ED2137ED5100B1545A /* WJStringHelper.swift in Sources */,
-				DFD3579F213D663C0093246A /* WJTitleExampleController.swift in Sources */,
+				DF233BDA213E2457005454E8 /* WJTitleBarStyleDemoController.swift in Sources */,
 				DF1EF4E72137C7BF00B1545A /* WJPageTitleBarView.swift in Sources */,
-				DFD357A1213D68340093246A /* WJDemoViewController.swift in Sources */,
+				DF233BE4213E50F9005454E8 /* WJExampleHelper.swift in Sources */,
+				DF233BDC213E31B2005454E8 /* WJGroupUseViewController.swift in Sources */,
 				DFD16DCB213D248D00242B1E /* WJColorExtension.swift in Sources */,
 				DF1EF4EB2137D67800B1545A /* WJPageViewConfig.swift in Sources */,
+				DF233BDE213E323E005454E8 /* WJMusicViewController.swift in Sources */,
+				DF233BE0213E324B005454E8 /* WJVideoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,7 +442,10 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = CZ3FPDA5HU;
 				INFOPLIST_FILE = WJPageView/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.weijie.WJPageView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "7bcf2e6e-427c-4b76-96cd-89de29f8108a";
@@ -436,7 +463,10 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = CZ3FPDA5HU;
 				INFOPLIST_FILE = WJPageView/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.weijie.WJPageView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "7bcf2e6e-427c-4b76-96cd-89de29f8108a";

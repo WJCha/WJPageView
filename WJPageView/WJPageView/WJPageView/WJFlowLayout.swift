@@ -9,14 +9,18 @@
 import UIKit
 
 class WJFlowLayout: UICollectionViewFlowLayout {
-
+//    var offset: CGFloat?
+    
     override func prepare() {
+     
         minimumLineSpacing = 0
         minimumInteritemSpacing = 0
         scrollDirection = .horizontal
         collectionView?.isPagingEnabled = true
         collectionView?.showsVerticalScrollIndicator = false
         collectionView?.showsHorizontalScrollIndicator = false
+//        guard let offset = offset else { return }
+//        collectionView?.contentOffset = CGPoint(x: offset, y: 0)
     }
     
 }

@@ -63,7 +63,7 @@ open class WJPageTitleBarView: UIView {
     required public init?(coder aDecoder: NSCoder) {
         self.titles = [String]()
         self.config = WJPageViewConfig()
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
     
 }
@@ -94,8 +94,8 @@ extension WJPageTitleBarView {
     
     private func setupTitles() {
         
-        assert(config.defaultIndex >= 0, "索引必须大于0")
-        assert(config.defaultIndex > titleLabels.count - 1, "数组越界")
+        assert(config.defaultIndex >= 0, "索引必须>=0")
+        assert(config.defaultIndex < titles.count, "索引超过标题个数")
         
         titleLabels.removeAll()
         for(index, title) in titles.enumerated() {
@@ -325,7 +325,7 @@ extension WJPageTitleBarView {
     
     
     /// 滚动标题到标题栏中心
-    private func scrollTargetTitleLabelToCenter(_ targetLabel: UILabel?, animated: Bool = true) {
+    public func scrollTargetTitleLabelToCenter(_ targetLabel: UILabel?, animated: Bool = true) {
         
         guard let targetLabel = targetLabel else {
             return
@@ -357,6 +357,7 @@ extension WJPageTitleBarView: WJPageContainerViewDelegate {
     public func pageContainerView(_ pageContainerView: WJPageContainerView, sourceIndex: Int, targetIndex: Int) {
         
         changeTitleSelectedState(titleLabels[sourceIndex], titleLabels[targetIndex])
+        scrollTargetTitleLabelToCenter(titleLabels[targetIndex], animated: true)
     }
     
     /// 滚动进度相关信息

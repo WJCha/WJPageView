@@ -18,11 +18,12 @@ import UIKit
 private let PAGE_CELL = "PAGE_CELL"
 open class WJPageContainerView: UIView {
     
+    public var childViewControllers: [UIViewController]
+    public var config: WJPageViewConfig
+    
     public weak var delegate: WJPageContainerViewDelegate?
     public weak var reloader: WJPageReloadable?
     
-    private let childViewControllers: [UIViewController]
-    private let config: WJPageViewConfig
     private lazy var collectionView: UICollectionView = setupCollectionView()
     private var isIgnoreDelegate: Bool = false
     private var startOffsetX: CGFloat = 0
@@ -38,7 +39,7 @@ open class WJPageContainerView: UIView {
     required public init?(coder aDecoder: NSCoder) {
         self.childViewControllers = [UIViewController]()
         self.config = WJPageViewConfig()
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
     
     public func scrollToPage(pageIndex: Int) {
@@ -55,6 +56,7 @@ open class WJPageContainerView: UIView {
 extension WJPageContainerView {
     public func pageSetup() {
         addSubview(collectionView)
+        
     }
     
     private func setupCollectionView() -> UICollectionView {
@@ -66,6 +68,9 @@ extension WJPageContainerView {
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: PAGE_CELL)
         collectionView.backgroundColor = config.pageContainerViewBgColor
         collectionView.isScrollEnabled = config.isInteractiveScorllEnable
+//        if #available(iOS 11.0, *) {
+//            collectionView.contentInsetAdjustmentBehavior = .never
+//        }
         return collectionView
     }
     
@@ -108,6 +113,10 @@ extension WJPageContainerView: UICollectionViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if isIgnoreDelegate {
+            return
+        }
+        
+        if scrollView.bounds.width == 0 {
             return
         }
         
@@ -163,7 +172,7 @@ extension WJPageContainerView: UICollectionViewDelegate {
     
     private func dealWithScrollViewDidEndScroll(_ scrollView: UIScrollView) {
         
-        let currentPageIndex = Int(round(scrollView.contentOffset.x / scrollView.frame.size.width))
+        let currentPageIndex = Int(round(collectionView.contentOffset.x / collectionView.frame.size.width))
         
         let childVC = childViewControllers[currentPageIndex]
         reloader = childVC as? WJPageReloadable
@@ -185,6 +194,7 @@ extension WJPageContainerView {
         collectionView.frame = bounds
         let layout = collectionView.collectionViewLayout as! WJFlowLayout
         layout.itemSize = bounds.size
+//        layout.offset = CGFloat(config.defaultIndex) * bounds.size.width
         collectionView.scrollToItem(at: NSIndexPath(item: config.defaultIndex, section: 0) as IndexPath, at: .left, animated: false)
     }
     

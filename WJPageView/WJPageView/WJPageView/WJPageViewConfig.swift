@@ -8,7 +8,7 @@
 
 import UIKit
 
-let grayColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
+private let grayColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
 
 public enum ContentAlignment: Int {
     /// 标题可以满屏显示时居中，超屏显示需要滚动即为左对齐, 默认
@@ -33,7 +33,7 @@ public class WJPageViewConfig {
     
     // MARK: -------- 标题相关设置 ----------
     
-    /// 是否开启标题颜色渐变效果
+    /// 是否开启标题颜色渐变效果(只有配合控制器拖拽滚动时才有效)
     public var isTitleColorAnimateEnable: Bool = true
     /// 标题普通颜色
     public var titleNormalColor: UIColor = .black
