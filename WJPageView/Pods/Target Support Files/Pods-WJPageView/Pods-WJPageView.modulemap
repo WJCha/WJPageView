@@ -1,0 +1,6 @@
+framework module Pods_WJPageView {
+  umbrella header "Pods-WJPageView-umbrella.h"
+
+  export *
+  module * { export * }
+}
