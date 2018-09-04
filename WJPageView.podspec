@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "WJPageView"
-  s.version      = "0.5.0"
+  s.version      = "0.5.1"
   s.summary      = "WJPageView is a title bar  and controller interactive tool"
   s.swift_version = '4.0'
   # This description is used to generate tags and improve search results.
@@ -91,7 +91,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = 'WJPageView/WJPageView/WJPageView}'
+  s.source_files  = 'WJPageView/WJPageView/WJPageView/*.swift'
  
 
   # s.public_header_files = "Classes/**/*.h"

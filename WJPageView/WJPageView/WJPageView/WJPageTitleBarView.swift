@@ -53,7 +53,7 @@ open class WJPageTitleBarView: UIView {
     
 
     
-    init(frame: CGRect, config: WJPageViewConfig, titles: [String]) {
+    public init(frame: CGRect, config: WJPageViewConfig, titles: [String]) {
         self.titles = titles
         self.config = config
         super.init(frame: frame)

@@ -29,7 +29,7 @@ open class WJPageContainerView: UIView {
     private var startOffsetX: CGFloat = 0
     private var canCallEndScrollDelegate: Bool = false
 
-    init(frame: CGRect, config: WJPageViewConfig, childViewControllers: [UIViewController]) {
+    public init(frame: CGRect, config: WJPageViewConfig, childViewControllers: [UIViewController]) {
         self.childViewControllers = childViewControllers
         self.config = config
         super.init(frame: frame)
