@@ -10,13 +10,13 @@
 
 ## Demo
 
-![Demo](Resource/titledemo.gif)
+![Demo](https://github.com/WJCha/WJPageView/blob/master/Resource/titledemo.gif)
 
 
 
 ## Components
 
-![Components](Resource/结构.jpg)
+![Components](https://github.com/WJCha/WJPageView/blob/master/Resource/结构.jpg)
 
 - `WJPageTitleBarView`对应用于创建`标题栏titleBar`，通过`WJPageViewConfig`来控制器样式，
 - `WJPageContainerView`对应用于创建内容页，通过`WJPageViewConfig`来控制器样式
@@ -27,7 +27,7 @@
 
 > 为了方便大家控制该类创建标题栏样式，现针对其做一个简要图示说明
 
-![titleBarView](Resource/titleBarView.jpg)
+![titleBarView](https://github.com/WJCha/WJPageView/blob/master/Resource/titleBarView.jpg)
 
 
 
