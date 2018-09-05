@@ -1,4 +1,9 @@
 # WJPageView
+
+[![Version](https://img.shields.io/cocoapods/v/WJPageView.svg?style=flat)](http://cocoapods.org/pods/DNSPageView)
+[![License](https://img.shields.io/cocoapods/l/WJPageView.svg?style=flat)](http://cocoapods.org/pods/DNSPageView)
+[![Platform](https://img.shields.io/cocoapods/p/DNSPageView.svg?style=flat)](http://cocoapods.org/pods/WJPageView)
+
 `WJPageView`是一个纯`swift`编写的易用的标题栏和控制器切换交互工具视图。
 
 
