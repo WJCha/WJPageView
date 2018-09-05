@@ -43,6 +43,7 @@
 
 ### CocoaPods
 
+#### Podfile 文件编写
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
@@ -52,6 +53,8 @@ target 'TargetName' do
   pod 'WJPageView'
 end
 ```
+#### 执行安装
+`pod install`
 
 ### Manually
 
