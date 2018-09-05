@@ -100,5 +100,8 @@ public class WJPageViewConfig {
     public var isInteractiveScorllEnable: Bool = true
     
     
+    public init() {
+        
+    }
 
 }

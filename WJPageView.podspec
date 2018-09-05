@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "WJPageView"
-  s.version      = "0.5.1"
+  s.version      = "0.5.2"
   s.summary      = "WJPageView is a title bar  and controller interactive tool"
   s.swift_version = '4.0'
   # This description is used to generate tags and improve search results.
