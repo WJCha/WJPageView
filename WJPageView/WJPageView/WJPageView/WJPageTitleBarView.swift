@@ -1,10 +1,26 @@
 //
-//  WJPageTitleBarView.swift
 //  WJPageView
 //
-//  Created by 陈威杰 on 2018/8/30.
-//  Copyright © 2018年 W.J Chen. All rights reserved.
+//  Created by 陈威杰 (WJCha & W.J Chen)
+//  Copyright © 2018-Present W.J Chen - https://github.com/WJCha/WJPageView
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
 
 import UIKit
 
@@ -225,7 +241,9 @@ extension WJPageTitleBarView {
         
         
         if config.isScaleTransformEnable {
-            titleLabels[config.defaultIndex].transform = CGAffineTransform(scaleX: config.maximumScaleTransformFactor, y: config.maximumScaleTransformFactor)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.25) {
+                self.titleLabels[self.config.defaultIndex].transform = CGAffineTransform(scaleX: self.config.maximumScaleTransformFactor, y: self.config.maximumScaleTransformFactor)
+            }
         }
         
       
@@ -285,7 +303,7 @@ extension WJPageTitleBarView {
     private func starTitleScaleTransformAnimate(_ sourceLabel: UILabel, _ targetLabel: UILabel) {
         
         UIView.animate(withDuration: 0.25) {
-            sourceLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            sourceLabel.transform = CGAffineTransform.identity
             targetLabel.transform = CGAffineTransform(scaleX: self.config.maximumScaleTransformFactor, y: self.config.maximumScaleTransformFactor)
         }
         
@@ -304,23 +322,33 @@ extension WJPageTitleBarView {
     }
     
     private func startIndicatorAnimate(_ sourceLabel: UILabel, _ targetLabel: UILabel) {
-        // 计算出需要滚动的距离
-        let scrollDistance = targetLabel.center.x - sourceLabel.center.x
-        UIView.animateKeyframes(withDuration: 0.6, delay: 0, options: .calculationModeLinear, animations: {
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.3, animations: {
-                var frame = self.indicatorView.frame
-                frame.origin.x += frame.size.width * 0.5
-                frame.size.width = scrollDistance
-                self.indicatorView.frame = frame
-            })
-            
-            UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.3, animations: {
-                var frame = self.indicatorView.frame
-                frame.size.width = self.config.indicatorWidth ?? targetLabel.frame.size.width
-                self.indicatorView.frame = frame
+        
+        if config.isIndicatorStretchAnimationEnable {
+            // 计算出需要滚动的距离
+            let scrollDistance = targetLabel.center.x - sourceLabel.center.x
+            UIView.animateKeyframes(withDuration: 0.6, delay: 0, options: .calculationModeLinear, animations: {
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.3, animations: {
+                    var frame = self.indicatorView.frame
+                    frame.origin.x += frame.size.width * 0.5
+                    frame.size.width = scrollDistance
+                    self.indicatorView.frame = frame
+                })
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.3, animations: {
+                    var frame = self.indicatorView.frame
+                    frame.size.width = self.config.indicatorWidth ?? targetLabel.frame.size.width
+                    self.indicatorView.frame = frame
+                    self.indicatorView.center.x = targetLabel.center.x
+                })
+            }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 0.25) {
+                self.indicatorView.frame.size.width = self.config.indicatorWidth ?? targetLabel.frame.size.width
                 self.indicatorView.center.x = targetLabel.center.x
-            })
-        }, completion: nil)
+            }
+        }
+        
+        
     }
     
     
@@ -371,16 +399,41 @@ extension WJPageTitleBarView: WJPageContainerViewDelegate {
 
         let distance = targetLabel.center.x - sourceLabel.center.x
         let changeWidth = targetLabel.frame.size.width - sourceLabel.frame.size.width
-
+        
         if config.isShowOvalView {
             ovalView.frame.size.width = sourceLabel.frame.width + changeWidth * progress + config.ovalViewExtendWidth * 2
             ovalView.center.x = sourceLabel.center.x + distance * progress
         }
 
-
+        
         if config.isShowIndicator {
-            indicatorView.frame.size.width = config.indicatorWidth ?? (sourceLabel.frame.width + changeWidth * progress)
+//            indicatorView.frame.size.width = config.indicatorWidth ?? (sourceLabel.frame.width + changeWidth * progress)
+//            indicatorView.center.x = sourceLabel.center.x + distance * progress
+
+            
+            if config.isIndicatorStretchAnimationEnable {
+                var addIndicatorW: CGFloat = 0
+                if config.indicatorWidth != nil {
+                    addIndicatorW = config.indicatorWidth!
+                } else {
+                    addIndicatorW = sourceLabel.frame.width * 0.5 + targetLabel.frame.width * 0.5
+                }
+                let totalWidth = CGFloat(fabsf(Float(distance))) + addIndicatorW
+                let growWidth = totalWidth - (config.indicatorWidth ?? sourceLabel.frame.width)
+                let reduceWidth = totalWidth - (config.indicatorWidth ?? targetLabel.frame.width)
+                
+                if progress <= 0.5 {
+                    indicatorView.frame.size.width = (config.indicatorWidth ?? sourceLabel.frame.width) + growWidth * progress * 2
+                } else {
+                    indicatorView.frame.size.width = totalWidth - reduceWidth * (progress - 0.5) * 2
+                }
+            } else {
+                indicatorView.frame.size.width = config.indicatorWidth ?? (sourceLabel.frame.width + changeWidth * progress)
+            }
+ 
             indicatorView.center.x = sourceLabel.center.x + distance * progress
+            
+            
         }
         
         
@@ -390,12 +443,23 @@ extension WJPageTitleBarView: WJPageContainerViewDelegate {
             targetLabel.transform = CGAffineTransform(scaleX: 1.0 + progress * diffScale, y: 1.0 + progress * diffScale)
         }
         
-        if config.isTitleColorAnimateEnable {
+        if config.isTitleColorAnimationEnable {
             if config.titleNormalColor == config.titleSelectedColor { return }
             sourceLabel.textColor = UIColor(red: selectColorRGB.red+deltaRGB.red * progress, green: selectColorRGB.green+deltaRGB.green*progress, blue: selectColorRGB.blue+deltaRGB.blue*progress, alpha: 1.0)
             targetLabel.textColor = UIColor(red: normalColorRGB.red-deltaRGB.red*progress, green: normalColorRGB.green-deltaRGB.green*progress, blue: normalColorRGB.blue-deltaRGB.blue*progress, alpha: 1.0)
     
+        } else {
+            if progress >= 0.5 {
+                targetLabel.textColor = config.titleSelectedColor
+                sourceLabel.textColor = config.titleNormalColor
+            } else {
+                targetLabel.textColor = config.titleNormalColor
+                sourceLabel.textColor = config.titleSelectedColor
+            }
         }
+        
+        
+        
         
         
     }

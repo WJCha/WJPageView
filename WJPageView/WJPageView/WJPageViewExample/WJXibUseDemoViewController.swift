@@ -22,7 +22,9 @@ class WJXibUseDemoViewController: UIViewController {
         config.titleBarBgColor = .white
         config.indecatorBottomOffset = 2
         config.titleEdgeMargin = 15
-        config.indicatorWidth = 15
+        config.indicatorWidth = 20
+        config.indicatorLineHeight = 4
+        config.isScaleTransformEnable = true
         return config
     }()
 

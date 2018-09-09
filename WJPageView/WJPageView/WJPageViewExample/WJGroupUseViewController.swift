@@ -22,6 +22,8 @@ class WJGroupUseViewController: UIViewController {
         config.titleBarBgColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
         config.titleSelectedColor = .red
         config.indecatorBottomOffset = 2
+        config.isTitleColorAnimationEnable = false
+        config.isScaleTransformEnable = true
         return config
     }()
     
