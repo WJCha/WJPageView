@@ -10,7 +10,11 @@
 
 ## Demo
 
-![标题](https://github.com/WJCha/WJPageView/blob/master/Resource/title01.png)![gif](https://github.com/WJCha/WJPageView/blob/master/Resource/demo01.gif)
+
+
+<img src="https://github.com/WJCha/WJPageView/blob/master/Resource/title01.png" width="260" hegiht="463" style="float: left;" />
+
+<img src="https://github.com/WJCha/WJPageView/blob/master/Resource/demo01.gif" width="260" hegiht="463" style="float: left;" />
 
 
 
