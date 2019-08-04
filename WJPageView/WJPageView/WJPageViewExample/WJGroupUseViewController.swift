@@ -20,10 +20,17 @@ class WJGroupUseViewController: UIViewController {
     private lazy var config: WJPageViewConfig = {
         let config = WJPageViewConfig()
         config.titleBarBgColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
-        config.titleSelectedColor = .red
+        config.titleSelectedColor = UIColor.white
         config.indecatorBottomOffset = 2
+        config.isShowIndicator = false
+        config.isShowAllOvalView = true
         config.isTitleColorAnimationEnable = false
-        config.isScaleTransformEnable = true
+        config.fixedTitleMargin = 40
+        config.allOvalViewNormalColor = UIColor.white
+        config.allOvalViewSelectColor = .blue
+//        config.allOvalViewCornerRadius = 10
+        config.allOvalViewHeight = 30
+//        config.isShowBorderUnSelect = true
         return config
     }()
     

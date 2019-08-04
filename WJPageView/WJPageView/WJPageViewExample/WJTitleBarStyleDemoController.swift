@@ -54,8 +54,15 @@ extension WJTitleBarStyleDemoController {
         config.contentAlignment = .right
         config.isShowIndicator = false
         config.titleEdgeMargin = 15.0
+        config.isShowAllOvalView = true
+        config.fixedTitleMargin = 40
+        config.allOvalViewNormalColor = .clear
+        config.allOvalViewSelectColor = .blue
+        config.allOvalViewCornerRadius = 10
+        config.allOvalViewHeight = 30
         let titleBarView = WJPageTitleBarView(frame: frame, config: config, titles: shortTitles)
         view.addSubview(titleBarView)
+        
 
     }
     

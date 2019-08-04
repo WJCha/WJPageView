@@ -50,6 +50,7 @@ public class WJPageViewConfig {
     // MARK: -------- 标题相关设置 ----------
     
     /// 是否开启标题颜色渐变效果(只有配合控制器拖拽滚动时才有效)
+    /// 在 isShowAllOvalView 和 isShowBorderUnSelect 同为 true 时不起作用
     public var isTitleColorAnimationEnable: Bool = true
     /// 标题普通颜色
     public var titleNormalColor: UIColor = .black
@@ -76,7 +77,7 @@ public class WJPageViewConfig {
     
     
     
-    /// 是否显示 底线 标题指示器
+    /// ---------- 是否显示 底线 标题指示器
     public var isShowIndicator: Bool = true 
     /// 指示器颜色
     public var indicatorColor: UIColor = .orange
@@ -91,9 +92,9 @@ public class WJPageViewConfig {
     /// 指示器拉伸动画
     public var isIndicatorStretchAnimationEnable = true
     
-    /// 是否显示标题背景指示器
+    /// ---------- 是否显示标题背景指示器(只有当前选中标题才有背景指示器)
     public var isShowOvalView: Bool = false
-    /// 标题背景指示器圆角, 如果设置ovalViewHeight，默认圆角度数为ovalViewHeight*0.5，否则为标题Label高度*0.5
+    /// 标题背景指示器圆角, 如果设置ovalViewHeight，默认圆角度数为ovalViewHeight*0.5，否则为标题栏高度*0.5
     public var ovalViewCornerRadius: CGFloat?
     /// 标题背景指示器边框高度
     public var ovalViewHeight: CGFloat?
@@ -108,6 +109,27 @@ public class WJPageViewConfig {
     /// 标题背景指示器的透明度
     public var ovalViewAlpha: CGFloat = 1.0
     
+    
+    /// ----------- 是否显示每个标题下的背景视图(每个标题都有一个背景指示器)
+    public var isShowAllOvalView: Bool = false
+    /// 标题背景指示器圆角, 如果设置ovalViewHeight，默认圆角度数为ovalViewHeight*0.5，否则为标题Label高度*0.5
+    public var allOvalViewCornerRadius: CGFloat?
+    /// 标题背景指示器边框高度
+    public var allOvalViewHeight: CGFloat?
+    /// 标题背景指示器普通颜色
+    public var allOvalViewNormalColor = grayColor
+    /// 标题背景指示器选中颜色r
+    public var allOvalViewSelectColor = UIColor.red
+    /// 是否展示标题背景指示器未选中时的边框(选中的标题不展示边框)
+    public var isShowBorderUnSelect: Bool = false
+    /// 未选中标题背景指示器边框颜色
+    public var allOvalViewUnSelectBorderColor: UIColor = .darkGray
+    /// 未选中标题背景指示器边框宽度
+    public var allOvalViewUnSelectBorderWidth: CGFloat = 1.0;
+    /// 标题背景指示器边框相对标题文字宽度两边各扩展多少宽度
+    public var allOvalViewExtendWidth: CGFloat = 15.0
+    /// 标题背景指示器的透明度
+    public var allOvalViewAlpha: CGFloat = 1.0
 
     
     // MARK: -------- 控制器相关设置 ----------

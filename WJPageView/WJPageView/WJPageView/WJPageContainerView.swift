@@ -24,7 +24,7 @@
 
 import UIKit
 
-@objc public protocol WJPageContainerViewDelegate: NSObjectProtocol {
+@objc public protocol WJPageContainerViewDelegate: class {
     /// 滚动完成
     @objc optional func pageContainerView(_ pageContainerView: WJPageContainerView, sourceIndex: Int, targetIndex: Int)
     /// 滚动过程中的起始索引、目标索引和拖拽进度

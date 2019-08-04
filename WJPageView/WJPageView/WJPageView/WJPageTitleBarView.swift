@@ -25,7 +25,7 @@
 import UIKit
 
 
-@objc public protocol WJPageTitleBarViewDelegate: NSObjectProtocol {
+@objc public protocol WJPageTitleBarViewDelegate: class {
 
     /// 子控制器刷新代理
     @objc optional var reloader: WJPageReloadable? { get }
@@ -35,7 +35,7 @@ import UIKit
 
 
 /// 子控制器要监听标题重复点击以及滚动停止可以实现该协议对应方法
-@objc public protocol WJPageReloadable: NSObjectProtocol {
+@objc public protocol WJPageReloadable: class {
     
     /// 监听标题重复点击事件
     @objc optional func titleBarViewTitleDidRepeatClicked()
@@ -55,6 +55,7 @@ open class WJPageTitleBarView: UIView {
     private lazy var indicatorView: UIView    = setupIndicator();
     private lazy var ovalView: UIView         = setupOvalView()
     private var titleLabels: [UILabel] = [UILabel]()
+    private var allOvalViews: [UIView] = [UIView]()
     private var titleWidthArr: [CGFloat] = [CGFloat]()
     private var canScrollTitleLabelToCenter: Bool = false
     
@@ -64,6 +65,15 @@ open class WJPageTitleBarView: UIView {
         let deltaR = self.normalColorRGB.red - self.selectColorRGB.red
         let deltaG = self.normalColorRGB.green - self.selectColorRGB.green
         let deltaB = self.normalColorRGB.blue - self.selectColorRGB.blue
+        return (deltaR, deltaG, deltaB)
+    }()
+    
+    private lazy var allOvalNormalColorRGB: WJColorRGB = config.allOvalViewNormalColor.getRGB()
+    private lazy var allOvalSelectColorRGB: WJColorRGB = config.allOvalViewSelectColor.getRGB()
+    private lazy var allOvalDeltaRGB: WJColorRGB = {
+        let deltaR = self.allOvalNormalColorRGB.red - self.allOvalSelectColorRGB.red
+        let deltaG = self.allOvalNormalColorRGB.green - self.allOvalSelectColorRGB.green
+        let deltaB = self.allOvalNormalColorRGB.blue - self.allOvalSelectColorRGB.blue
         return (deltaR, deltaG, deltaB)
     }()
     
@@ -115,6 +125,20 @@ extension WJPageTitleBarView {
         
         titleLabels.removeAll()
         for(index, title) in titles.enumerated() {
+            
+            if config.isShowAllOvalView {
+                let allOvalView = UIView()
+                allOvalView.alpha = config.allOvalViewAlpha
+                allOvalView.backgroundColor = index == config.defaultIndex ? config.allOvalViewSelectColor : config.allOvalViewNormalColor
+                allOvalView.layer.masksToBounds = true
+                if config.isShowBorderUnSelect, index != config.defaultIndex {
+                    allOvalView.layer.borderColor = config.allOvalViewUnSelectBorderColor.cgColor
+                    allOvalView.layer.borderWidth = config.allOvalViewUnSelectBorderWidth
+                }
+                allOvalViews.append(allOvalView)
+                scrollView.addSubview(allOvalView)
+            }
+            
             let titleLabel = UILabel()
             titleLabel.tag = index
             titleLabel.font = UIFont.systemFont(ofSize: config.titleFontSize)
@@ -167,6 +191,23 @@ extension WJPageTitleBarView {
             layoutOvalView()
         }
         
+        if config.isShowAllOvalView {
+            layoutAllOvalView()
+        }
+        
+    }
+    
+    
+    
+    private func layoutAllOvalView() {
+        for (index, titleLabel) in titleLabels.enumerated() {
+            let allOvalView = allOvalViews[index]
+            allOvalView.frame.size.width = config.allOvalViewExtendWidth * 2 + titleLabel.frame.size.width
+            allOvalView.center.x = titleLabel.center.x
+            allOvalView.frame.size.height = config.allOvalViewHeight ?? titleLabel.frame.size.height
+            allOvalView.center.y = titleLabel.center.y
+            allOvalView.layer.cornerRadius = config.allOvalViewCornerRadius ?? (config.allOvalViewHeight != nil ? config.allOvalViewHeight! * 0.5 : titleLabels[config.defaultIndex].frame.size.height * 0.5)
+        }
     }
     
     private func layoutOvalView() {
@@ -297,6 +338,10 @@ extension WJPageTitleBarView {
             startOvalViewAnimate(sourceLabel, targetLabel)
         }
         
+        if config.isShowAllOvalView {
+            startAllOvalViewAnimate(sourceLabel.tag, targetLabel.tag)
+        }
+        
     }
     
     
@@ -320,6 +365,23 @@ extension WJPageTitleBarView {
             self.ovalView.center.x = targetLabel.center.x
         }
     }
+    
+    private func startAllOvalViewAnimate(_ sourceIndex: Int, _ targetIndex: Int) {
+        let sourceAllOvalView = allOvalViews[sourceIndex]
+        let targetAllOvalView = allOvalViews[targetIndex]
+        
+        sourceAllOvalView.backgroundColor = config.allOvalViewNormalColor
+        targetAllOvalView.backgroundColor = config.allOvalViewSelectColor
+        targetAllOvalView.layer.borderWidth = 0
+        
+        if config.isShowBorderUnSelect {
+            
+            sourceAllOvalView.layer.borderWidth = config.allOvalViewUnSelectBorderWidth
+            sourceAllOvalView.layer.borderColor = config.allOvalViewUnSelectBorderColor.cgColor
+        }
+        
+    }
+    
     
     private func startIndicatorAnimate(_ sourceLabel: UILabel, _ targetLabel: UILabel) {
         
@@ -386,6 +448,10 @@ extension WJPageTitleBarView: WJPageContainerViewDelegate {
         
         changeTitleSelectedState(titleLabels[sourceIndex], titleLabels[targetIndex])
         scrollTargetTitleLabelToCenter(titleLabels[targetIndex], animated: true)
+        
+        if config.isShowAllOvalView, sourceIndex != targetIndex {
+            startAllOvalViewAnimate(sourceIndex, targetIndex)
+        }
     }
     
     /// 滚动进度相关信息
@@ -444,11 +510,17 @@ extension WJPageTitleBarView: WJPageContainerViewDelegate {
         }
         
         if config.isTitleColorAnimationEnable {
+            
+            if config.isShowAllOvalView, config.isShowBorderUnSelect { return }
+            
             if config.titleNormalColor == config.titleSelectedColor { return }
             sourceLabel.textColor = UIColor(red: selectColorRGB.red+deltaRGB.red * progress, green: selectColorRGB.green+deltaRGB.green*progress, blue: selectColorRGB.blue+deltaRGB.blue*progress, alpha: 1.0)
             targetLabel.textColor = UIColor(red: normalColorRGB.red-deltaRGB.red*progress, green: normalColorRGB.green-deltaRGB.green*progress, blue: normalColorRGB.blue-deltaRGB.blue*progress, alpha: 1.0)
     
         } else {
+            
+            if config.isShowAllOvalView, config.isShowBorderUnSelect { return }
+            
             if progress >= 0.5 {
                 targetLabel.textColor = config.titleSelectedColor
                 sourceLabel.textColor = config.titleNormalColor
@@ -459,6 +531,31 @@ extension WJPageTitleBarView: WJPageContainerViewDelegate {
         }
         
         
+        if config.isShowAllOvalView {
+            
+            if config.isShowBorderUnSelect { return }
+            
+            if config.allOvalViewNormalColor == config.allOvalViewSelectColor { return }
+            let sourceAllOvalView = allOvalViews[sourceIndex]
+            let targetAllOvalView = allOvalViews[targetIndex]
+
+            sourceAllOvalView.backgroundColor = UIColor(red: allOvalSelectColorRGB.red+allOvalDeltaRGB.red*progress, green: allOvalSelectColorRGB.green+allOvalDeltaRGB.green*progress, blue: allOvalSelectColorRGB.blue+allOvalDeltaRGB.blue*progress, alpha: 1.0)
+            
+            
+            targetAllOvalView.backgroundColor = UIColor(red: allOvalNormalColorRGB.red-allOvalDeltaRGB.red*progress, green: allOvalNormalColorRGB.green-allOvalDeltaRGB.green*progress, blue: allOvalNormalColorRGB.blue-allOvalDeltaRGB.blue*progress, alpha: 1.0)
+            
+//
+//            if config.isShowBorderUnSelect {
+//
+//                sourceAllOvalView.layer.borderWidth = progress * config.allOvalViewUnSelectBorderWidth
+//                targetAllOvalView.layer.borderWidth = (1 - progress) * config.allOvalViewUnSelectBorderWidth
+//
+//                sourceAllOvalView.layer.borderColor = UIColor(red: allOvalBorderColorRGB.red+allOvalBorderDeltaRGB.red*progress, green: allOvalBorderColorRGB.green+allOvalBorderDeltaRGB.green*progress, blue: allOvalBorderColorRGB.blue+allOvalBorderDeltaRGB.blue*progress, alpha: 1.0).cgColor
+//
+//                targetAllOvalView.layer.borderColor = UIColor(red: allOvalBorderSelectColorRGB.red-allOvalBorderDeltaRGB.red*progress, green: allOvalBorderSelectColorRGB.green-allOvalBorderDeltaRGB.green*progress, blue: allOvalBorderSelectColorRGB.blue-allOvalBorderDeltaRGB.blue*progress, alpha: 1.0).cgColor
+//            }
+            
+        }
         
         
         
