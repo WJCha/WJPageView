@@ -53,6 +53,11 @@ extension WJMusicViewController: UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let music = WJMusicViewController()
+        self.navigationController?.pushViewController(music, animated: true)
+    }
+    
 }
 
 extension WJMusicViewController: UITableViewDelegate {

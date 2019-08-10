@@ -211,6 +211,32 @@ extension WJPageContainerView {
         let layout = collectionView.collectionViewLayout as! WJFlowLayout
         layout.itemSize = bounds.size
         collectionView.scrollToItem(at: NSIndexPath(item: config.defaultIndex, section: 0) as IndexPath, at: .left, animated: false)
+        
+        // 添加父子控制器
+        if let controller = self.viewController() {
+            for vc in self.childViewControllers {
+                controller.addChildViewController(vc)
+            }
+        }
+        
+       
+        
+    }
+    
+}
+
+
+extension WJPageContainerView {
+    /// 获取响应事件的控制器
+    private func viewController() -> UIViewController? {
+        var responder = self.next
+        while responder != nil {
+            if ((responder as? UIViewController) != nil) {
+                return (responder as! UIViewController)
+            }
+            responder = responder?.next ?? nil
+        }
+        return nil
     }
     
 }
